@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Places Visited</title>
+</head>
+<body>
+<h2>Plcaes you have visited</h2>
+
+{% if visited %}
+<ul>
+  {% for place in visited %}
+    <li>{{ place.name }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>You have not visited any places yet.</p>
+{% endif %}
+
+<a href="{% url 'place_list' %}">Your wishlist</a>
+
+</body>
+</html>
