@@ -4,17 +4,19 @@
 <h2>Travel Wishlist</h2>
 
 <!--When click Add button, browser will make a post request to place_list url-->
+<div class="wishlist-form">
 <form method="POST" action="{% url 'place_list' %}">
     {% csrf_token %}
     {{ new_place_form }}
-    <button type="submit">Add</button>
+    <button type="submit" id="add-new-place">Add</button>
 </form>
+</div>
 
 {% for place in places %}
 
-<div>
-    {{ place.name }}
-    <form method="post" action="{% url 'place_was_visited' place.pk %}">
+<div class="wishlist-place">
+    <span class="place-name">{{ place.name }}</span>
+    <form method="post" action="{% url 'place_was_visited' place.pk %}" class="visited-form">
         {% csrf_token %}
         <button>Visited</button>
     </form>
