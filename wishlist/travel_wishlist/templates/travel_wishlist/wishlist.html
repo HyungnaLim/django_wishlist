@@ -8,6 +8,7 @@
 
 <h2>Travel Wishlist</h2>
 
+<!--When click Add button, browser will make a post request to place_list url-->
 <form method="POST" action="{% url 'place_list' %}">
     {% csrf_token %}
     {{ new_place_form }}
@@ -18,6 +19,10 @@
 
 <div>
     {{ place.name }}
+    <form method="post" action="{% url 'place_was_visited' place.pk %}">
+        {% csrf_token %}
+        <button>Visited</button>
+    </form>
 </div>
 
 {% empty %}
