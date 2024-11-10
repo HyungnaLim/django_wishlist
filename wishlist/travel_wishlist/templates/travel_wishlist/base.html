@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Wishlist</title>
+</head>
+
+<h1>Where do you want to go?</h1>
+
+<body>
+  {% block content %}
+  {% endblock %}
+</body>
+
+<div>
+  <p>A travel wishlist, build with Django</p>
+  <a href="{% url 'place_list' %}">Your wishlist</a>
+  <a href="{% url 'places_visited'%}">Places you've visited</a>
+</div>
+
+</html>
