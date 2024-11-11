@@ -1,5 +1,3 @@
-from http.client import responses
-
 from django.test import TestCase
 from django.urls import reverse
 from .models import Place
@@ -63,6 +61,7 @@ class TestAddNewPlace(TestCase):
         tokyo = response_places[0]
         tokyo_from_database = Place.objects.get(name='Tokyo', visited=False)
         self.assertEqual(tokyo_from_database, tokyo)
+
 
 class TestVisitPlace(TestCase):
     fixtures = ['test_places']
