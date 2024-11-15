@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Place
 from .forms import NewPlaceForm
-
-# import login decorators to enable user only can see their own places
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required # login decorators to enable user can see their own places
+from django.http import HttpResponseForbidden
 
 
 @login_required()
@@ -41,8 +40,11 @@ def place_was_visited(request, place_pk):
     if request.method == 'POST':
         # place = Place.objects.get(pk=place_pk)
         place = get_object_or_404(Place, pk=place_pk)   # if object is not found, return 404 error response
-        place.visited = True
-        place.save()
+        if place.user == request.user:  # only allow changing visited data for user who created the place
+            place.visited = True
+            place.save()
+        else:
+            return HttpResponseForbidden  # prevent making change from user who didn't create the place
     return redirect('place_list')   # redirect to the path 'place_list'
 
 
