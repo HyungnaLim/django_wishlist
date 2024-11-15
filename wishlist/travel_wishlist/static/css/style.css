@@ -1,7 +1,8 @@
 /* Base styles */
 
 #site-header {
-  background: url('../img/jtree.jpg') 0 0 repeat-x;
+  background: url('../img/header.jpg') 0 0 repeat-x;
+  background-size: 100% 100%;
   color: white;
   padding: 40px 0 40px 0px;
   text-align: center;
