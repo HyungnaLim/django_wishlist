@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Place
-from .forms import NewPlaceForm
+from .forms import NewPlaceForm, TripReviewForm
 from django.contrib.auth.decorators import login_required # login decorators to enable user can see their own places
 from django.http import HttpResponseForbidden
+from django.contrib import messages
 
 
 @login_required()
@@ -51,7 +52,27 @@ def place_was_visited(request, place_pk):
 @login_required()
 def place_details(request, place_pk):
     place = get_object_or_404(Place, pk=place_pk)
-    return render(request, 'travel_wishlist/place_details.html', {'place':place})
+
+    # check for user
+    if place.user != request.user:
+        return HttpResponseForbidden()
+
+    # if POST request, validate form data and update
+    if request.method == 'POST':
+        form = TripReviewForm(request.POST, request.FILES, instance=place)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Trip information updated!')
+            return redirect('place_details', place_pk=place_pk)
+        else:
+            messages.error(request, form.errors)  #TODO refine later
+
+    else:  # if get request, show Place info and optional form
+        if place.visited:
+            review_form = TripReviewForm(instance=place)
+            return render(request, 'travel_wishlist/place_details.html', {'place':place, 'review_form':review_form})
+        else:
+            return render(request, 'travel_wishlist/place_details.html', {'place': place})
 
 
 @login_required()
