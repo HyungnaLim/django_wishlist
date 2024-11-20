@@ -21,3 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('travel_wishlist.urls'))
 ]
+
+# Add routing for image url
+from django.conf import settings
+from django.conf.urls.static import static
+if settings.DEBUG:  # if the app is running on debug mode
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
