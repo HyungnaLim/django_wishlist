@@ -28,6 +28,8 @@
     </div>
     {% endif %}
 
+    <hr>
+    <h3>Review Form</h3>
     <form action="{% url 'place_details' place.pk %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ review_form.as_p }}
