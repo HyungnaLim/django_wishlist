@@ -15,5 +15,5 @@ class TripReviewForm(forms.ModelForm):
         model = Place
         fields = ('notes', 'date_visited', 'photo')
         widgets = {
-            'date_visited ' : DateInput()
+            'date_visited' : DateInput()
         }
